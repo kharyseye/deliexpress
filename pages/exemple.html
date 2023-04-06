@@ -1,0 +1,71 @@
+<!-- A page with a list of products -->
+<h1>Products</h1>
+<ul>
+    <li>
+        <img src="sneakers.jpg" alt="Sneakers">
+        <h2>Sneakers</h2>
+        <p>$100</p>
+        <form action="cart.php" method="post">
+            <input type="hidden" name="product" value="sneakers">
+            <button type="submit">Add to cart</button>
+        </form>
+    </li>
+    <li>
+        <img src="dress.jpg" alt="Dress">
+        <h2>Dress</h2>
+        <p>$50</p>
+        <form action="cart.php" method="post">
+            <input type="hidden" name="product" value="dress">
+            <button type="submit">Add to cart</button>
+        </form>
+    </li>
+    <li>
+        <img src="hat.jpg" alt="Hat">
+        <h2>Hat</h2>
+        <p>$20</p>
+        <form action="cart.php" method="post">
+            <input type="hidden" name="product" value="hat">
+            <button type="submit">Add to cart</button>
+        </form>
+    </li>
+</ul>
+
+<!-- A page to display the cart -->
+<h1>Cart</h1>
+<?php
+    // Start a session
+    session_start();
+    // Check if a cart exists in the session
+    if (!isset($_SESSION["cart"])) {
+        // If not, create an empty cart
+        $_SESSION["cart"] = [];
+    }
+    // Get the cart from the session
+    $cart = $_SESSION["cart"];
+    // Check if the cart is empty
+    if (empty($cart)) {
+        echo "Your cart is empty";
+    } else {
+        // If the cart is not empty, display the items in the cart
+        echo "<ul>";
+        foreach ($cart as $item) {
+            echo "<li>$item</li>";
+        }
+        echo "</ul>";
+    }
+?>
+
+<!-- A page to handle adding items to the cart -->
+<?php
+    // Start a session
+    session_start();
+    // Check if a product was submitted
+    if (isset($_POST["product"])) {
+        // If a product was submitted, add it to the cart
+        $product = $_POST["product"];
+        $_SESSION["cart"][] = $product;
+    }
+    // Redirect the user back to the products page
+    header("Location: products.php");
+    exit;
+?>
