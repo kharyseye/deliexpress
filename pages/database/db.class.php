@@ -1,7 +1,7 @@
 <?php
 class DB{
     private $host = 'localhost';
-    private $username = 'root';
+    private $username = 'rooot';
     private $password ='';
     private $database ='deliexpress';
     private $db;
